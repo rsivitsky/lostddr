@@ -24,6 +24,7 @@
 
 <form:form action="${addAction}" commandName="part" enctype="multipart/form-data">
     <c:url var="partPhotoUrl" value="/part/photo/${part.part_id}"/>
+    <c:url var="partPhotoUrll" value="${part.photopath}"/>
     <table class="table table-hover table-responsive">
         <tr bgcolor="#87ceeb">
             <th>
@@ -53,7 +54,7 @@
             </td>
             <td>
                 <c:if test="${!empty part.part_id}">
-                    <img src="${partPhotoUrl}" class="img-rounded" height="40" width="150"/>
+                    <img src=${partPhotoUrl} class="img-rounded" height="40" width="150"/>
                 </c:if>
             </td>
             <td>
@@ -86,9 +87,11 @@
                 <c:url var="editDescUrl" value="/part/descript/edit/${part.part_id}"/>
                 <c:url var="partDescription" value="/part/description/${part.part_id}"/>
                 <c:url var="partPhotoUrl" value="/part/photo/${part.part_id}"/>
+
                 <tr>
-                    <td><a href="${partDescription}"><img src="${partPhotoUrl}" class="img-rounded" height="40"
+                 <td><a href="${partDescription}"><img src="${partPhotoUrl}" class="img-rounded" height="40"
                                                           width="150"/></a>
+
                     <td>${part.part_name}</td>
                     <td>${part.manufactur.manufactur_name}</td>
                     <td><a href="${editPartUrl}"><img src="${editImgUrl}"/></a></td>
@@ -99,4 +102,3 @@
         </table>
     </c:if>
 </div>
-

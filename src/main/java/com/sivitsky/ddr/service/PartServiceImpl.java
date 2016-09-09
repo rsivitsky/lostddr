@@ -75,16 +75,16 @@ public class PartServiceImpl implements PartService {
         }
     }
 
-    public void saveImage(String filename, MultipartFile image)
+    public String saveImage(String filename, MultipartFile image)
             throws RuntimeException, IOException {
         try {
             String filePath = env.getProperty("pathForGoodsImg");
             File file = new File(filePath + "/"
                     + filename);
-
             FileUtils.writeByteArrayToFile(file, image.getBytes());
             System.out.println("Go to the location:  " + file.toString()
                     + " on your computer and verify that the image has been stored.");
+            return file.getAbsolutePath();
         } catch (IOException e) {
             throw e;
         }

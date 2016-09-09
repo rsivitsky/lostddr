@@ -19,10 +19,12 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
 
 @Controller
 @SessionAttributes({"part", "listPart"})
@@ -55,23 +57,14 @@ public class PartController {
             return "redirect:/part/list";
         } else {
             if (img_file.getSize() != 0) {
-                try{
-                partService.validateImage(img_file);}
-                catch (RuntimeException re) {
+                try {
+                    partService.validateImage(img_file);
+                } catch (RuntimeException re) {
                     result.reject(re.getMessage());
                     return "redirect:/part/list";
                 }
-                partService.saveImage(img_file.getOriginalFilename(), img_file);
-                byte[] fileContent = null;
-                try {
-                    InputStream inputStream = img_file.getInputStream();
-                    fileContent = IOUtils.toByteArray(inputStream);
-                } catch (IOException ex) {
-                    System.out.println();
-                }
-                if (fileContent != null) {
-                    part.setPhoto(fileContent);
-                }
+                String pathphoto = partService.saveImage(img_file.getOriginalFilename(), img_file);
+                part.setPhotopath(pathphoto);
             }
             this.partService.savePart(part);
         }
@@ -97,5 +90,13 @@ public class PartController {
         model.addAttribute("part", this.partService.getPartById(part_id));
         model.addAttribute("descriptions", this.descriptionService.listDescriptionByPartId(part_id));
         return "partDescription";
+    }
+
+    @RequestMapping(value = "/part/photo/{part_id}", method = RequestMethod.GET)
+    @ResponseBody
+    public byte[] downloadPhoto(@PathVariable("part_id") Long part_id, HttpServletResponse httpServletResponse) throws IOException {
+        Part part = partService.getPartById(part_id);
+        File serverFile = new File(part.getPhotopath());
+        return Files.readAllBytes(serverFile.toPath());
     }
 }

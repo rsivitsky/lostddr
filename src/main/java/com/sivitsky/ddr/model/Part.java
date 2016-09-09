@@ -13,11 +13,12 @@ import java.io.Serializable;
 }
 )
 public class Part implements Serializable {
+
     private Long part_id;
     @Size(min = 3, message = "The part name must be at least 3 characters long.")
     private String part_name;
     private Manufactur manufactur;
-    private byte[] photo;
+    private String photopath;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,17 +29,6 @@ public class Part implements Serializable {
 
     public void setPart_id(Long part_id) {
         this.part_id = part_id;
-    }
-
-    @Basic(fetch = FetchType.LAZY)
-    @Lob
-    @Column(name = "photo")
-    public byte[] getPhoto() {
-        return photo;
-    }
-
-    public void setPhoto(byte[] photo) {
-        this.photo = photo;
     }
 
     @Column(name = "part_name")
@@ -60,4 +50,12 @@ public class Part implements Serializable {
         this.manufactur = manufactur;
     }
 
+    @Column(name="photopath")
+    public String getPhotopath() {
+        return photopath;
+    }
+
+    public void setPhotopath(String photopath) {
+        this.photopath = photopath;
+    }
 }

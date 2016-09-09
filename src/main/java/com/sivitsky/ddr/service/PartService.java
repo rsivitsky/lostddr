@@ -28,6 +28,6 @@ public interface PartService {
 
     void validateImage(MultipartFile image);
 
-    void saveImage(String filename, MultipartFile image) throws RuntimeException, IOException;
+    String saveImage(String filename, MultipartFile image) throws RuntimeException, IOException;
 
 }
