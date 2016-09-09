@@ -1,0 +1,81 @@
+<%@page contentType="text/html" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+
+<spring:message code="label.add" var="add"/>
+<spring:message code="label.edit" var="edit"/>
+<spring:message code="label.delete" var="delete"/>
+<spring:message code="label.public_cancel" var="cancel"/>
+<spring:message code="label.spec_name" var="spec_name"/>
+<spring:message code="label.spec_measure" var="spec_measure"/>
+<spring:message code="label.specification_list" var="specification_list"/>
+
+<spring:url value="/specification/add" var="addAction"/>
+<spring:url value="/specification" var="cancelAction"/>
+<spring:url value="/resources/img/edit.png" var="editImgUrl"/>
+<spring:url value="/resources/img/delete.png" var="deleteImgUrl"/>
+
+<c:set var="measure_name" value="${specification.measure.measure_name}"/>
+
+<div>
+    <form:form action="${addAction}" commandName="specification">
+        <table class="table table-hover">
+            <tr bgcolor="#87ceeb">
+                <th>
+                        ${spec_name}
+                </th>
+                <th>
+                        ${spec_measure}
+                </th>
+            </tr>
+            <tr>
+                <td>
+                    <form:input path="spec_name"/>
+                </td>
+                <td>
+                    <form:select path="measure.measure_id">
+                        <c:if test="${empty measure_name}">
+                            <form:option value="NONE" label="--- Select ---" />
+                        </c:if>
+                        <form:options items="${listMeasure}" itemValue="measure_id" itemLabel="measure_name"  />
+                    </form:select>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <c:if test="${!empty specification.spec_name}">
+                        <input type="submit" class="btn btn-info"
+                               value="<spring:message text="${edit}"/>"/>
+                    </c:if>
+                    <c:if test="${empty specification.spec_name}">
+                        <input type="submit" class="btn btn-info"
+                               value="<spring:message text="${add}"/>"/>
+                    </c:if>
+                    <a href="${cancelAction}" class="btn btn-info" role="button">${cancel}</a>
+                </td>
+            </tr>
+        </table>
+    </form:form>
+
+    <c:if test="${!empty listSpec}">
+        <br>
+
+        <h3>${specification_list}</h3>
+        <table class="table table-hover">
+            <c:forEach items="${listSpec}" var="specitem">
+                <tr>
+                    <td>${specitem.spec_id}</td>
+                    <td>${specitem.spec_name}</td>
+                    <td>${specitem.measure.measure_name}</td>
+                    <td><a href="<c:url value='/specification/edit/${specitem.spec_id}' />" title=${edit}><img
+                            src="${editImgUrl}"/></a></td>
+                    <td><a href="<c:url value='/specification/remove/${specitem.spec_id}' />" title=${delete}><img
+                            src="${deleteImgUrl}"/></a></td>
+                </tr>
+            </c:forEach>
+        </table>
+    </c:if>
+</div>

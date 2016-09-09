@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+        <!--https://www.google.com/settings/security/lesssecureapps - should click  TURN ON-->
+        <!--
+         <property name="host" value="smtp.gmail.com"/>
+         <property name="port" value="587"/>
+         <property name="username" value="rsivitsky"/>
+         <property name="password" value="novogrudok2015"/>
+         <property name="javaMailProperties">
+            <props>
+                <prop key="mail.smtp.auth">true</prop>
+                <prop key="mail.smtp.starttls.enable">true</prop>
+                <prop key="mail.smtp.ssl.trust">smtp.gmail.com</prop>
+            </props>
+        </property>
+        -->
+
+        <!--<property name="host" value="smtp.sparkpostmail.com"/>
+        <property name="port" value="587"/>
+        <property name="username" value="SMTP_Injection"/>
+        <property name="password" value="pansivitsky_apikey"/>
+        <property name="javaMailProperties">
+            <props>
+                <prop key="mail.transport.protocol">smtp</prop>
+                <prop key="mail.smpt.host>">smtp.sparkpostmail.com</prop>
+                <prop key="mail.smtp.auth">true</prop>
+                <prop key="mail.smtp.auth.login.disable">true</prop>
+                <prop key="mail.smtp.starttls.enable">true</prop>
+                <prop key="mail.smtp.ssl.trust">*</prop>
+            </props>
+        </property>
+        -->
+
+        <property name="host" value="${mail.host}"/>
+        <property name="port" value="${mail.port}"/>
+
+        <property name="username" value="${mail.username}"/>
+        <property name="password" value="${mail.password}"/>
+
+        <property name="javaMailProperties">
+            <props>
+                <prop key="mail.transport.protocol">${mail.transport.protocol}</prop>
+                <prop key="mail.smpt.host>">${mail.smpt.host}</prop>
+                <prop key="mail.smtp.auth">${mail.smtp.auth}</prop>
+                <prop key="mail.smtp.auth.login.disable">true</prop>
+                <prop key="mail.smtp.starttls.enable">true</prop>
+                <prop key="mail.smtp.ssl.trust">*</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="mailService" class="com.sivitsky.ddr.service.MailService">
+        <property name="mailSender" ref="mailSender"/>
+    </bean>
+
+</beans>

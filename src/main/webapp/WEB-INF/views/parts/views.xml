@@ -1,0 +1,63 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+    <definition name="index" extends="default">
+        <put-attribute name="body" value="/WEB-INF/views/index.jsp"/>
+    </definition>
+    <definition name="add_part" extends="default">
+        <put-attribute name="body" value="/WEB-INF/views/add_part.jsp"/>
+    </definition>
+    <definition name="part" extends="default">
+        <put-attribute name="body" value="/WEB-INF/views/part.jsp"/>
+    </definition>
+    <definition name="offer" extends="default">
+        <put-attribute name="body" value="/WEB-INF/views/offer.jsp"/>
+    </definition>
+    <definition name="order" extends="default">
+        <put-attribute name="body" value="/WEB-INF/views/order.jsp"/>
+    </definition>
+    <definition name="vendor" extends="default">
+        <put-attribute name="body" value="/WEB-INF/views/vendor.jsp"/>
+    </definition>
+    <definition name="partsOffers" extends="default">
+        <put-attribute name="body" value="/WEB-INF/views/partsOffers.jsp"/>
+    </definition>
+    <definition name="partDescription" extends="default">
+        <put-attribute name="body" value="/WEB-INF/views/partDescription.jsp"/>
+    </definition>
+    <definition name="cart" extends="default">
+        <put-attribute name="body" value="/WEB-INF/views/cart.jsp"/>
+    </definition>
+    <definition name="measure" extends="default">
+        <put-attribute name="body" value="/WEB-INF/views/measure.jsp"/>
+    </definition>
+    <definition name="manufactur" extends="default">
+        <put-attribute name="body" value="/WEB-INF/views/manufactur.jsp"/>
+    </definition>
+    <definition name="description" extends="default">
+        <put-attribute name="body" value="/WEB-INF/views/description.jsp"/>
+    </definition>
+    <definition name="specification" extends="default">
+        <put-attribute name="body" value="/WEB-INF/views/specification.jsp"/>
+    </definition>
+    <definition name="user" extends="default">
+        <put-attribute name="body" value="/WEB-INF/views/user.jsp"/>
+    </definition>
+    <definition name="registration" extends="default">
+        <put-attribute name="body" value="/WEB-INF/views/registration.jsp"/>
+    </definition>
+    <definition name="quick_registration" extends="default">
+        <put-attribute name="body" value="/WEB-INF/views/quick_registration.jsp"/>
+    </definition>
+    <definition name="account" extends="default">
+        <put-attribute name="body" value="/WEB-INF/views/account.jsp"/>
+    </definition>
+    <definition name="order_edit" extends="default">
+        <put-attribute name="body" value="/WEB-INF/views/order_edit.jsp"/>
+    </definition>
+    <definition name="cart_info" extends="default">
+        <put-attribute name="body" value="/WEB-INF/views/cart_info.jsp"/>
+    </definition>
+</tiles-definitions>

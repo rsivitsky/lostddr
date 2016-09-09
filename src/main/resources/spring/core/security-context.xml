@@ -1,0 +1,53 @@
+<!--suppress ALL -->
+<beans:beans xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns="http://www.springframework.org/schema/security"
+             xsi:schemaLocation="
+                http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+                http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.2.xsd">
+
+    <http use-expressions="true">
+
+        <intercept-url pattern="/vendor/*" access="hasAnyRole('ROLE_ADMIN')"/>
+        <intercept-url pattern="/vendor" access="hasAnyRole('ROLE_ADMIN')"/>
+        <intercept-url pattern="/manufactur/*" access="hasAnyRole('ROLE_ADMIN')"/>
+        <intercept-url pattern="/manufactur" access="hasAnyRole('ROLE_ADMIN')"/>
+        <intercept-url pattern="/measure/*" access="hasAnyRole('ROLE_ADMIN')"/>
+        <intercept-url pattern="/measure" access="hasAnyRole('ROLE_ADMIN')"/>
+        <intercept-url pattern="/specification/*" access="hasAnyRole('ROLE_ADMIN')"/>
+        <intercept-url pattern="/specification" access="hasAnyRole('ROLE_ADMIN')"/>
+        <intercept-url pattern="/user/*" access="hasAnyRole('ROLE_ADMIN')"/>
+        <intercept-url pattern="/user" access="hasAnyRole('ROLE_ADMIN')"/>
+        <intercept-url pattern="/order/*" access="hasAnyRole('ROLE_ADMIN')"/>
+        <intercept-url pattern="/order" access="hasAnyRole('ROLE_ADMIN')"/>
+        <intercept-url pattern="/offers/*" access="hasAnyRole('ROLE_ADMIN','ROLE_VENDOR')"/>
+        <intercept-url pattern="/offers" access="hasAnyRole('ROLE_ADMIN','ROLE_VENDOR')"/>
+        <intercept-url pattern="/cart/add" access="permitAll"/>
+        <intercept-url pattern="/cart/add/*" access="permitAll"/>
+        <intercept-url pattern="/order/edit" access="permitAll"/>
+        <intercept-url pattern="/order/edit/*" access="permitAll"/>
+        <intercept-url pattern="/cart/info" access="permitAll"/>
+        <intercept-url pattern="/cart/info/*" access="permitAll"/>
+        <intercept-url pattern="/part/list" access="hasAnyRole('ROLE_ADMIN')"/>
+        <intercept-url pattern="/part/list/*" access="hasAnyRole('ROLE_ADMIN')"/>
+        <intercept-url pattern="/part/*" access="permitAll"/>
+        <intercept-url pattern="/part" access="permitAll"/>
+        <intercept-url pattern="/registration" access="permitAll"/>
+        <intercept-url pattern="/registration/save" access="permitAll"/>
+        <intercept-url pattern="/account/*" access="hasAnyRole('ROLE_ADMIN','ROLE_VENDOR','ROLE_USER')"/>
+        <intercept-url pattern="/account" access="hasAnyRole('ROLE_ADMIN','ROLE_VENDOR','ROLE_USER')"/>
+
+        <form-login login-page="/index"
+                    authentication-failure-url="/index"
+                    default-target-url="/index"/>
+        <logout logout-success-url="/index"/>
+    </http>
+
+    <authentication-manager alias="authenticationManager">
+        <authentication-provider>
+            <jdbc-user-service data-source-ref="dataSource"
+                               users-by-username-query="select email, password, TRUE from user where email = ? "
+                               authorities-by-username-query="select email, role from user where email = ?"/>
+        </authentication-provider>
+    </authentication-manager>
+</beans:beans>
